@@ -4,7 +4,6 @@ const { mongoURI } = require('./config/keys')
 
 const app = express()
 
-
 // mongoose connection
 mongoose
   .connect(mongoURI)
