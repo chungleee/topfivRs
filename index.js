@@ -5,6 +5,7 @@ const { mongoURI } = require('./config/keys')
 
 // load routes
 const users = require('./routes/api/users')
+const yelp = require('./routes/api/yelp')
 
 const app = express()
 
@@ -15,6 +16,7 @@ app.use(passport.initialize())
 
 // router
 app.use('/api/users', users)
+app.use('/api/yelp', yelp)
 
 // passport config
 require('./config/passport')(passport)
