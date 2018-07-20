@@ -17,4 +17,27 @@ router.get('/test', passport.authenticate('jwt', {session:false}), (req, res) =>
   res.json(req.user)
 })
 
+// @route   GET /api/yelp/restaurant
+// @desc    Fetch restaurants
+// @access  Private
+router.post('/restaurant', passport.authenticate('jwt', {session:false}), (req, res) => {
+  // destructure location from body
+  const { location } = req.body
+  // client search based on location
+  client
+    .search({
+      categories: 'restaurants',
+      sort_by: 'distance',
+      open_now: true,
+      limit: 5,
+      location
+    })
+    .then((response) => {
+      res.json(response.jsonBody)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+})
+
 module.exports = router
