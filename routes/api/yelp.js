@@ -40,4 +40,50 @@ router.post('/restaurant', passport.authenticate('jwt', {session:false}), (req, 
     })
 })
 
+// @route   GET /api/yelp/bar
+// @desc    Fetch bars
+// @access  Private
+router.post('/bar', passport.authenticate('jwt', {session:false}), (req, res) => {
+  // destructure location from body
+  const { location } = req.body
+  // client search based on location
+  client
+    .search({
+      categories: 'bars',
+      sort_by: 'distance',
+      open_now: true,
+      limit: 5,
+      location
+    })
+    .then((response) => {
+      res.json(response.jsonBody)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+})
+
+// @route   GET /api/yelp/cafe
+// @desc    Fetch cafe
+// @access  Private
+router.post('/cafe', passport.authenticate('jwt', {session:false}), (req, res) => {
+  // destructure location from body
+  const { location } = req.body
+  // client search based on location
+  client
+    .search({
+      categories: 'cafes, coffee, coffeeroasteries',
+      sort_by: 'distance',
+      open_now: true,
+      limit: 5,
+      location
+    })
+    .then((response) => {
+      res.json(response.jsonBody)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+})
+
 module.exports = router
