@@ -6,6 +6,7 @@ import Navbar from './components/common/Navbar';
 import Landing from './components/landing/Landing';
 import Register from './components/register/Register'
 import Login from './components/login/Login'
+import SearchBar from './components/main/SearchBar'
 
 class App extends Component {
   render() {
@@ -16,6 +17,7 @@ class App extends Component {
           <Route exact path='/' component={Landing} />
           <Route path='/register' component={Register} />
           <Route path='/login' component={Login} />
+          <Route path='/search' component={SearchBar} />
         </div>
       </Router>
     );
