@@ -1,29 +1,40 @@
 import React, { Component } from 'react'
 
 class Register extends Component {
+  constructor() {
+    super()
+    this.state = {
+      username: '',
+      email: '',
+      password: '',
+      password2: ''
+    }
+  }
+
+
   render() {
     return (
       <section className="section">
         <div className="container">
           <form>
             <div className="field">
-              <label for="username" className="label">Username</label>
+              <label className="label">Username</label>
               <div className="control">
                 <input type="text" placeholder="username" name="username" className="input" />
               </div>
             </div>
             <div className="field">
-              <label for="email" className="label">Email</label>
+              <label className="label">Email</label>
               <div className="control">
                 <input type="email" placeholder="email"   className="input" />
               </div>
             </div>
             <div className="field">
-              <label for="password" className="label">Password</label>
+              <label className="label">Password</label>
               <input type="password" placeholder="password" className="input" />
             </div>
             <div className="field">
-              <label for="password2" className="label">Confirm Password</label>
+              <label className="label">Confirm Password</label>
               <input type="password" className="input" />
             </div>
             <div className="field is-grouped">
