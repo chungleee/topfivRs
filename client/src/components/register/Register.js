@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 
 class Register extends Component {
   constructor(props) {
@@ -12,10 +13,27 @@ class Register extends Component {
   }
 
   handleOnChange = (e) => {
-    console.log(e.target.value);
     this.setState({
       [e.target.name]: e.target.value
     })
+  }
+
+  handleOnSubmit = (e) => {
+    // prevent refresh
+    e.preventDefault()
+    // destructure
+    const { username, email, password } = this.state
+    // assign to userData
+    const userData = { username, email, password }
+    // axios.post
+    axios
+      .post('/api/users/register', userData)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   }
 
   render() {
@@ -68,10 +86,17 @@ class Register extends Component {
             </div>
             <div className="field is-grouped">
               <div className="control">
-                <button type="submit" className="button is-primary">Register</button>
+                <button 
+                  onClick={this.handleOnSubmit}
+                  type="submit" 
+                  className="button is-primary"
+                >Register</button>
               </div>
               <div className="control">
-                <button type="reset" className="button">Reset</button>
+                <button
+                  type="reset" 
+                  className="button"
+                >Reset</button>
               </div>
             </div>
           </form>

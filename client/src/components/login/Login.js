@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 
 class Login extends Component {
   constructor() {
@@ -13,6 +14,24 @@ class Login extends Component {
     this.setState({
       [e.target.name]: e.target.value
     })
+  }
+
+  handleOnSubmit = (e) => {
+    // prevent page refresh
+    e.preventDefault()
+    // destructure state
+    const { email, password } = this.state
+    // assign to userData
+    const userData = { email, password }
+    // axios post /api/users/login
+    axios
+      .post('/api/users/login', userData)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   }
 
   render() {
@@ -44,7 +63,11 @@ class Login extends Component {
             </div>
             <div className="field">
               <div className="control">
-                <button type="submit" className="button is-primary">Log In</button>
+                <button 
+                  onClick={this.handleOnSubmit}
+                  type="submit" 
+                  className="button is-primary"
+                >Log In</button>
               </div>
             </div>
           </form>
