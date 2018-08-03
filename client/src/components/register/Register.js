@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
 class Register extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       username: '',
       email: '',
@@ -11,6 +11,12 @@ class Register extends Component {
     }
   }
 
+  handleOnChange = (e) => {
+    console.log(e.target.value);
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
 
   render() {
     return (
@@ -20,22 +26,45 @@ class Register extends Component {
             <div className="field">
               <label className="label">Username</label>
               <div className="control">
-                <input type="text" placeholder="username" name="username" className="input" />
+                <input 
+                  type="text" 
+                  placeholder="username" 
+                  name="username" 
+                  className="input" 
+                  onChange={this.handleOnChange}
+                />
               </div>
             </div>
             <div className="field">
               <label className="label">Email</label>
               <div className="control">
-                <input type="email" placeholder="email"   className="input" />
+                <input
+                  name='email'
+                  type="email" 
+                  placeholder="email"   
+                  className="input"
+                  onChange={this.handleOnChange} 
+                />
               </div>
             </div>
             <div className="field">
               <label className="label">Password</label>
-              <input type="password" placeholder="password" className="input" />
+              <input 
+                name='password'
+                type="password" 
+                placeholder="password" 
+                className="input"
+                onChange={this.handleOnChange} 
+              />
             </div>
             <div className="field">
               <label className="label">Confirm Password</label>
-              <input type="password" className="input" />
+              <input 
+                name='password2'
+                type="password" 
+                className="input"
+                onChange={this.handleOnChange} 
+              />
             </div>
             <div className="field is-grouped">
               <div className="control">

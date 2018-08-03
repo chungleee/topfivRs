@@ -1,6 +1,20 @@
 import React, { Component } from 'react'
 
 class Login extends Component {
+  constructor() {
+    super()
+    this.state = {
+      email: '',
+      password: ''
+    }
+  }
+
+  handleOnChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+
   render() {
     return (
       <section className="section">
@@ -9,12 +23,24 @@ class Login extends Component {
             <div className="field">
               <label className="label">Email</label>
               <div className="control">
-                <input type="email" placeholder="email"   className="input" />
+                <input 
+                  type="email" 
+                  placeholder="email"   
+                  className="input" 
+                  name='email'
+                  onChange={this.handleOnChange}
+                />
               </div>
             </div>
             <div className="field">
               <label className="label">Password</label>
-              <input type="password" placeholder="password" className="input" />
+              <input 
+                type="password" 
+                placeholder="password" 
+                className="input" 
+                name='password'
+                onChange={this.handleOnChange}
+              />
             </div>
             <div className="field">
               <div className="control">
