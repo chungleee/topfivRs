@@ -39,10 +39,12 @@ class Login extends Component {
         if(success && token) {
           // decode token
           const decoded = jwt_decode(token)
-          this.setState({
-            isAuthenticated: true,
-            user: {
-              username: decoded.username
+          this.setState(() => {
+            return {
+              isAuthenticated: true,
+              user: {
+                username: decoded.username
+              }
             }
           })
         }
@@ -53,27 +55,21 @@ class Login extends Component {
   }
 
   render() {
-    const { isAuthenticated, user } = this.state
-
-    return isAuthenticated 
-      ? (
-      <div>{user.username}</div>
-    ) :
-     (
+    return (
       <section className="section">
         <div className="container">
           <form>
             <div className="field">
               <label className="label">Email</label>
-              <div className="control">
-                <input 
-                  type="email" 
-                  placeholder="email"   
-                  className="input" 
-                  name='email'
-                  onChange={this.handleOnChange}
-                />
-              </div>
+                <div className="control">
+                  <input 
+                      type="email" 
+                      placeholder="email"   
+                      className="input" 
+                      name='email'
+                      onChange={this.handleOnChange}
+                  />
+                </div>
             </div>
             <div className="field">
               <label className="label">Password</label>
