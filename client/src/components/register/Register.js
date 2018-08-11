@@ -30,6 +30,13 @@ class Register extends Component {
       .post('/api/users/register', userData)
       .then((response) => {
         console.log(response);
+        const { status } = response
+        const { username } = response.data
+        const user = { username }
+        if(response && status === 200) {
+          this.props.requireUser(user)
+          this.props.history.push('/search')
+        }
       })
       .catch((error) => {
         console.log(error);
