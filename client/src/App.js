@@ -19,6 +19,7 @@ class App extends Component {
       }
     }
   }
+
   requireUser = (userData) => {
     if(userData) {
       this.setState({
@@ -30,11 +31,20 @@ class App extends Component {
     }
   }  
 
+  removeAuth = () => {
+    this.setState({
+      isAuthenticated: false,
+      user: {
+        username: ''
+      }
+    })
+  }
+
   render() {
     return (
       <Router>
         <div>
-          <Navbar auth={this.state.isAuthenticated}/>
+          <Navbar auth={this.state.isAuthenticated} removeAuth={this.removeAuth}/>
 
           <Route exact path='/' component={Landing} />
           <Route path='/register' render={(props) => {
