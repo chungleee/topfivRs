@@ -13,6 +13,7 @@ class Navbar extends Component {
             <div className="navbar-end">
               <Link to='/register' className="navbar-item">Register</Link>
               <Link to='/login' className="navbar-item">Login</Link>
+              <Link to='/search' className='navbar-item'>Search</Link>
             </div>
           </div>
         </div>
