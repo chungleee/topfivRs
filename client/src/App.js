@@ -38,7 +38,9 @@ class App extends Component {
           <Navbar />
 
           <Route exact path='/' component={Landing} />
-          <Route path='/register' component={Register} />
+          <Route path='/register' render={(props) => {
+            return <Register {...props} requireUser={this.requireUser} />
+          }} />
           <Route path='/login' render={(props) => {
             return <Login {...props} requireUser={this.requireUser} />
           }} />
