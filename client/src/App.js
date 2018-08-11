@@ -20,7 +20,6 @@ class App extends Component {
     }
   }
   requireUser = (userData) => {
-    console.log('userData', userData);
     if(userData) {
       this.setState({
         isAuthenticated: true,
@@ -35,7 +34,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Navbar />
+          <Navbar auth={this.state.isAuthenticated}/>
 
           <Route exact path='/' component={Landing} />
           <Route path='/register' render={(props) => {
