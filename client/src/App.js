@@ -7,17 +7,42 @@ import Landing from './components/landing/Landing';
 import Register from './components/register/Register'
 import Login from './components/login/Login'
 import SearchBar from './components/main/SearchBar'
+import PrivateRoute from './components/privateroute/PrivateRoute';
 
 class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      isAuthenticated: false,
+      user: {
+        username: ''
+      }
+    }
+  }
+  requireUser = (userData) => {
+    console.log('userData', userData);
+    if(userData) {
+      this.setState({
+        isAuthenticated: true,
+        user: {
+          username: userData.username
+        }
+      })
+    }
+  }  
+
   render() {
     return (
       <Router>
         <div>
           <Navbar />
+
           <Route exact path='/' component={Landing} />
           <Route path='/register' component={Register} />
-          <Route path='/login' component={Login} />
-          <Route path='/search' component={SearchBar} />
+          <Route path='/login' render={(props) => {
+            return <Login {...props} requireUser={this.requireUser} />
+          }} />
+          <PrivateRoute path='/search' component={SearchBar} auth={this.state.isAuthenticated} />
         </div>
       </Router>
     );
