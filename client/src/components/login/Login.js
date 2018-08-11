@@ -3,15 +3,11 @@ import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 
 class Login extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       email: '',
       password: '',
-      isAuthenticated: false,
-      user: {
-        username: ''
-      }
     }
   }
 
@@ -32,22 +28,11 @@ class Login extends Component {
     axios
       .post('/api/users/login', userData)
       .then((response) => {
-        console.log(response);
         // destructure
-        const { success, token } = response.data
-        // if data.success true && data.token true - isAuthenticated true
-        if(success && token) {
-          // decode token
-          const decoded = jwt_decode(token)
-          this.setState(() => {
-            return {
-              isAuthenticated: true,
-              user: {
-                username: decoded.username
-              }
-            }
-          })
-        }
+        const { token } = response.data
+        const decoded = jwt_decode(token)
+        this.props.requireUser(decoded)
+        this.props.history.push('/search')
       })
       .catch((error) => {
         console.log(error);
