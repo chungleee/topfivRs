@@ -30,6 +30,7 @@ class Login extends Component {
       .then((response) => {
         // destructure
         const { token } = response.data
+        console.log('token', token);
         const decoded = jwt_decode(token)
         this.props.requireUser(decoded)
         this.props.history.push('/search')

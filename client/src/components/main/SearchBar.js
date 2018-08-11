@@ -3,6 +3,24 @@ import './Main.css'
 import ContentTable from './ContentTable'
 
 class SearchBar extends Component {
+  constructor() {
+    super()
+    this.state = {
+      location: '',
+      businesses: {}
+    }
+  }
+
+  handleOnChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+
+  handleOnSubmit = (e) => {
+    console.log('name', e.target.name);
+  }
+
   render() {
     return (
       <div>
@@ -16,17 +34,23 @@ class SearchBar extends Component {
         <section className="section">
           <div className="container">
             <div className="field">
-              <input className="input" type="text" placeholder="Type in your current address" name="address" />
+              <input 
+                onChange={this.handleOnChange}
+                className="input" 
+                type="text" 
+                placeholder="Type in your current address" 
+                name="location" 
+              />
             </div>
             <div className="field is-grouped is-grouped-centered">
               <div className="control">
-                <button className="button">Restaurants</button>
+                <button onClick={this.handleOnSubmit} name='restaurants' className="button">Restaurants</button>
               </div>
               <div className="control">
-                <button className="button">Bars</button>
+                <button onClick={this.handleOnSubmit} name='bars' className="button">Bars</button>
               </div>
               <div className="control">
-                <button className="button">Cafes</button>
+                <button onClick={this.handleOnSubmit} name='cafes' className="button">Cafes</button>
               </div>
             </div>
           </div>

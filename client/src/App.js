@@ -21,6 +21,7 @@ class App extends Component {
   }
 
   requireUser = (userData) => {
+    console.log('userdata: ', userData);
     if(userData) {
       this.setState({
         isAuthenticated: true,
