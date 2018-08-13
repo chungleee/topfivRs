@@ -29,12 +29,11 @@ class Register extends Component {
     axios
       .post('/api/users/register', userData)
       .then((response) => {
-        console.log(response);
         const { status } = response
         const { username } = response.data
         const user = { username }
         if(response && status === 200) {
-          this.props.requireUser(user)
+          this.props.logInUser(user)
           this.props.history.push('/search')
         }
       })
