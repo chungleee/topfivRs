@@ -31,7 +31,6 @@ class Login extends Component {
       .then((response) => {
         // destructure
         const { token } = response.data
-        console.log('token', token);
         localStorage.setItem('jwtToken', token)
         // set token to localStorage
         setAuth(token)

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './Main.css'
+import axios from 'axios'
 import ContentTable from './ContentTable'
 
 class SearchBar extends Component {
@@ -7,7 +8,7 @@ class SearchBar extends Component {
     super()
     this.state = {
       location: '',
-      businesses: {}
+      businesses: []
     }
   }
 
@@ -18,7 +19,19 @@ class SearchBar extends Component {
   }
 
   handleOnSubmit = (e) => {
-    console.log('name', e.target.name);
+    const { location } = this.state
+    if(e.target.name === 'bar') {
+      axios.post('/api/yelp/bar', {location})
+        .then((response) => {
+          const { businesses } = response.data
+          this.setState({
+            businesses
+          })
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
   }
 
   render() {
@@ -44,20 +57,20 @@ class SearchBar extends Component {
             </div>
             <div className="field is-grouped is-grouped-centered">
               <div className="control">
-                <button onClick={this.handleOnSubmit} name='restaurants' className="button">Restaurants</button>
+                <button onClick={this.handleOnSubmit} name='restaurant' className="button">Restaurants</button>
               </div>
               <div className="control">
-                <button onClick={this.handleOnSubmit} name='bars' className="button">Bars</button>
+                <button onClick={this.handleOnSubmit} name='bar' className="button">Bars</button>
               </div>
               <div className="control">
-                <button onClick={this.handleOnSubmit} name='cafes' className="button">Cafes</button>
+                <button onClick={this.handleOnSubmit} name='cafe' className="button">Cafes</button>
               </div>
             </div>
           </div>
         </section>
 
         {/* ContentTable Component - todo: pass component state to ContentTable props */}
-        <ContentTable />
+        <ContentTable businesses={this.state.businesses}/>
       </div>
     )
   }
