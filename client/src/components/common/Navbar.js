@@ -18,7 +18,7 @@ class Navbar extends Component {
         <div className="navbar-menu is-active">
             <div className="navbar-end">
               <Link to='/search' className='navbar-item'>Search</Link>
-              <Link onClick={this.props.removeAuth} to='/' className="navbar-item">Sign Out</Link>
+              <Link onClick={this.props.logoutUser} to='/' className="navbar-item">Sign Out</Link>
             </div>
           </div>
       )

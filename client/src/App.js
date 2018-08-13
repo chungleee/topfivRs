@@ -8,6 +8,8 @@ import Register from './components/register/Register'
 import Login from './components/login/Login'
 import SearchBar from './components/main/SearchBar'
 import PrivateRoute from './components/privateroute/PrivateRoute';
+import { setAuth } from './utils/setAuth';
+import jwt_decode from 'jwt-decode'
 
 class App extends Component {
   constructor() {
@@ -20,8 +22,23 @@ class App extends Component {
     }
   }
 
-  requireUser = (userData) => {
-    console.log('userdata: ', userData);
+  componentDidMount() {
+    if(localStorage.jwtToken) {
+      setAuth(localStorage.jwtToken)
+      // decode token
+      const decoded = jwt_decode(localStorage.jwtToken)
+      console.log(decoded);
+      // log in user
+      this.logInUser(decoded)
+      // check if exp < currentTime
+      const currentTime = Date.now() / 1000
+      if(decoded.exp < currentTime) {
+        this.logoutUser()
+      }
+    }
+  }
+
+  logInUser = (userData) => {
     if(userData) {
       this.setState({
         isAuthenticated: true,
@@ -32,29 +49,48 @@ class App extends Component {
     }
   }  
 
-  removeAuth = () => {
+  logoutUser = () => {
     this.setState({
       isAuthenticated: false,
       user: {
         username: ''
       }
     })
+    localStorage.removeItem('jwtToken')
   }
 
   render() {
     return (
       <Router>
         <div>
-          <Navbar auth={this.state.isAuthenticated} removeAuth={this.removeAuth}/>
+          <Navbar 
+            auth={this.state.isAuthenticated} 
+            logoutUser={this.logoutUser}
+          />
 
-          <Route exact path='/' component={Landing} />
-          <Route path='/register' render={(props) => {
-            return <Register {...props} requireUser={this.requireUser} />
-          }} />
-          <Route path='/login' render={(props) => {
-            return <Login {...props} requireUser={this.requireUser} />
-          }} />
-          <PrivateRoute path='/search' component={SearchBar} auth={this.state.isAuthenticated} />
+          <Route 
+            exact 
+            path='/' 
+            component={Landing} 
+          />
+          <Route 
+            path='/register' 
+            render={(props) => {
+              return <Register {...props} logInUser={this.logInUser} />
+            }} 
+          />
+
+          <Route 
+            path='/login' 
+            render={(props) => {
+              return <Login {...props} logInUser={this.logInUser} />
+            }} 
+          />
+          <PrivateRoute 
+            path='/search' 
+            component={SearchBar} 
+            auth={this.state.isAuthenticated} 
+          />
         </div>
       </Router>
     );

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
+import { setAuth } from '../../utils/setAuth';
 
 class Login extends Component {
   constructor(props) {
@@ -31,8 +32,14 @@ class Login extends Component {
         // destructure
         const { token } = response.data
         console.log('token', token);
+        localStorage.setItem('jwtToken', token)
+        // set token to localStorage
+        setAuth(token)
+        // decode token
         const decoded = jwt_decode(token)
-        this.props.requireUser(decoded)
+        // set App state
+        this.props.logInUser(decoded)
+        // push to /search
         this.props.history.push('/search')
       })
       .catch((error) => {
