@@ -1,37 +1,28 @@
 import React, { Component } from 'react'
 
 class ContentTable extends Component {
+  fetchBiz = () => {
+    const { businesses } = this.props
+    if(businesses.length){
+      return businesses.map((biz, idx) => {
+        return (
+          <tr key={idx}>
+            <th>{idx+1}</th>
+            <td>{biz.name}</td>
+            <td>{biz.location.address1}</td>
+          </tr>
+        )
+      })
+    }
+  }
+
   render() {
     return (
       <section className="section">
         <div className="container">
           <table className="table is-hoverable is-margin-auto">
             <tbody>
-              <tr>
-                <th>#1</th>
-                <td>Carver</td>
-                <td>123 peter street</td>
-              </tr>
-              <tr>
-                <th>#2</th>
-                <td>starbucks</td>
-                <td>123 peter street</td>
-              </tr>
-              <tr>
-                <th>#3</th>
-                <td>starbucks</td>
-                <td>123 peter street</td>
-              </tr>
-              <tr>
-                <th>#4</th>
-                <td>starbucks</td>
-                <td>123 peter street</td>
-              </tr>
-              <tr>
-                <th>#5</th>
-                <td>starbucks</td>
-                <td>123 peter street</td>
-              </tr>
+              {this.fetchBiz()}
             </tbody>
           </table>
         </div>
