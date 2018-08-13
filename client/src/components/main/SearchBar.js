@@ -20,8 +20,8 @@ class SearchBar extends Component {
 
   handleOnSubmit = (e) => {
     const { location } = this.state
-    if(e.target.name === 'bar') {
-      axios.post('/api/yelp/bar', {location})
+    if(e.target.name) {
+      axios.post(`/api/yelp/${e.target.name}`, {location})
         .then((response) => {
           const { businesses } = response.data
           this.setState({
