@@ -27,7 +27,6 @@ class App extends Component {
       setAuth(localStorage.jwtToken)
       // decode token
       const decoded = jwt_decode(localStorage.jwtToken)
-      console.log(decoded);
       // log in user
       this.logInUser(decoded)
       // check if exp < currentTime
@@ -89,7 +88,7 @@ class App extends Component {
           <PrivateRoute 
             path='/search' 
             component={SearchBar} 
-            auth={this.state.isAuthenticated} 
+            auth={this.state.isAuthenticated}
           />
         </div>
       </Router>
