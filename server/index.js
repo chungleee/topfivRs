@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const passport = require('passport')
+const path = require('path')
 const { mongoURI } = require('./config/keys')
 
 // load routes
@@ -17,6 +18,15 @@ app.use(passport.initialize())
 // router
 app.use('/api/users', users)
 app.use('/api/yelp', yelp)
+
+// serve static assets if in prod
+if(process.env.NODE_ENV === 'production') {
+  app.use(express.static('../client/build'))
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'))
+  })
+}
 
 // passport config
 require('./config/passport')(passport)
