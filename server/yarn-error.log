@@ -1,5 +1,5 @@
 Arguments: 
-  /Users/LKHC/.nvm/versions/node/v9.4.0/bin/node /Users/LKHC/.nvm/versions/node/v9.4.0/bin/yarn run client
+  /Users/LKHC/.nvm/versions/node/v9.4.0/bin/node /Users/LKHC/.nvm/versions/node/v9.4.0/bin/yarn client
 
 PATH: 
   /Users/LKHC/Desktop/topfivrs/server/node_modules/.bin:/Users/LKHC/.config/yarn/link/node_modules/.bin:/Users/LKHC/Desktop/topfivrs/server/node_modules/.bin:/Users/LKHC/.config/yarn/link/node_modules/.bin:/Users/LKHC/.nvm/versions/node/v9.4.0/libexec/lib/node_modules/npm/bin/node-gyp-bin:/Users/LKHC/.nvm/versions/node/v9.4.0/lib/node_modules/npm/bin/node-gyp-bin:/Users/LKHC/.nvm/versions/node/v9.4.0/bin/node_modules/npm/bin/node-gyp-bin:/Users/LKHC/.nvm/versions/node/v9.4.0/bin:/Users/LKHC/.yarn/bin:/Users/LKHC/.config/yarn/global/node_modules/.bin:/Users/LKHC/.nvm/versions/node/v9.4.0/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/Applications/Postgres.app/Contents/Versions/latest/bin:/Applications/Postgres.app/Contents/Versions/latest/bin:/Users/LKHC/.rbenv/shims:/usr/local/sbin:/usr/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin:/Users/LKHC/Library/Android/sdk/tools:/Users/LKHC/Library/Android/sdk/platform-tools
@@ -21,8 +21,9 @@ npm manifest:
     "license": "MIT",
     "scripts": {
       "server": "nodemon index.js",
-      "client": "yarn --cwd ../client yarn start",
-      "dev": "concurrently \"yarn run server\" \"yarn run client\""
+      "client": "yarn --cwd /client start",
+      "dev": "concurrently 'yarn server' 'yarn client'",
+      "heroku-postbuild": "cd /client && yarn && yarn run build"
     },
     "dependencies": {
       "bcryptjs": "^2.4.3",
@@ -798,7 +799,7 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: sh
-  Arguments: -c yarn --cwd ../client yarn start
+  Arguments: -c yarn --cwd /client start
   Directory: /Users/LKHC/Desktop/topfivrs/server
   Output:
   
