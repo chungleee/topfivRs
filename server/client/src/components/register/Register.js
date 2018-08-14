@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import jwt_decode from 'jwt-decode'
 import axios from 'axios'
+import { setAuth } from '../../utils/setAuth';
 
 class Register extends Component {
   constructor(props) {
@@ -30,7 +32,17 @@ class Register extends Component {
       .post('/api/users/register', userData)
       .then((response) => {
         const { status } = response
-        const { username } = response.data
+        const { token } = response.data
+
+        // store token to localStorage
+        localStorage.setItem('jwtToken', token)
+        // setAuth to set headers
+        setAuth(token)
+
+        // decode and set state
+        const decoded = jwt_decode(token)
+        const username = decoded.username
+
         const user = { username }
         if(response && status === 200) {
           this.props.logInUser(user)
